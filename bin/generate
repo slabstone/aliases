@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+: > aliases
+
+for file in $(readlink -f ./*.sh); do
+  echo "source ${file}" >> aliases
+done

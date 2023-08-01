@@ -1,0 +1,16 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+aliases_filepath=$(readlink -f aliases)
+readonly aliases_filepath
+
+readonly source_line="source ${aliases_filepath}"
+readonly bash_aliases_filepath="${HOME}/.bash_aliases"
+
+if [[ ! -f "${bash_aliases_filepath}" ]]; then
+  touch "${bash_aliases_filepath}"
+fi
+
+if ! grep -Fxq "${source_line}" "${bash_aliases_filepath}"; then
+  echo "${source_line}" >> "${bash_aliases_filepath}"
+fi
